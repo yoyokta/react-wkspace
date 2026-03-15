@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom/client';
 
+// IMPORT CSS
 import './index.css';
+
+// IMPORT 
+import { books } from './books';
+import Book from './Book';
+import {greeting} from './testing/testing';
 
 // JSX RULES:
 // 1. you can only return one element, but that element can have many children
@@ -14,33 +20,17 @@ import './index.css';
 // 8. don't kill yourself writing too much code all at once. play a video game.
 
 function Booklist() {
+  console.log(greeting);
   return (
   <section className="booklist">
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
+    {books.map((book) => {
+      return (
+        <Book key={book.id} book={book} />
+      );
+    })}
   </section>
   );
 }
-
-const Book = () => {
-  return <article className="book">  
-    <Image/>
-    <Title/>
-    <Author/>
-  </article>
-}
-
-function Image(){
-  return <img src ="https://m.media-amazon.com/images/I/71vIFzQbtbL._AC_UY218_.jpg" alt="Scott McClouds very helpful book"/>
-}
-
-const Title = () => <h1>Understanding Comics: The Invisible Art</h1>
-const Author = () => <h4 style={{color: '#9984aa',fontSize: '0.75rem', letterSpacing: '0.2rem'}}>Scott McCloud</h4>
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 root.render(<Booklist />);
