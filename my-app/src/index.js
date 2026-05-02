@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDom from 'react-dom/client';
 
 // IMPORT CSS
@@ -19,8 +19,11 @@ import {greeting} from './testing/testing';
 // 7. formatting: use parentheses to wrap multi-line JSX for better readability
 // 8. don't kill yourself writing too much code all at once. play a video game.
 
-function Booklist() {
-  console.log(greeting);
+/* function Booklist() {
+  console.log(useState(greeting));
+  const value = useState(1)[0];
+  const handler = useState(1)[1];
+  console.log(value, handler);
   return (
   <section className="booklist">
     {books.map((book) => {
@@ -30,7 +33,38 @@ function Booklist() {
     })}
   </section>
   );
+} */
+
+function UseStateBasics(){
+  const [booklist, setBooks] = useState(books);
+  const removeItem = (id) => {
+    let newBook = booklist.filter((book) => book.id !== id);
+    setBooks(newBook);
+    console.log(newBook);
+  };
+  return (
+    <>
+      {
+        booklist.map((book) => {
+          const {id, title} = book;
+          return(
+            <div> 
+              <h4>{title}</h4> 
+              <button onClick={() => removeItem(id)}>
+                remove
+              </button>
+            </div>
+          );
+        })
+      }
+      <button onClick={
+        () => setBooks([])
+      }>
+        clear items
+      </button>
+    </>
+  )
 }
 
 const root = ReactDom.createRoot(document.getElementById('root'));
-root.render(<Booklist />);
+root.render(<UseStateBasics />);

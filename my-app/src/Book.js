@@ -7,13 +7,14 @@ const Book = (props) => {
     console.log(a);
   }
   return (
-  <article className='book' onMouseOver={()=>{
+  <article className='book'/*  onMouseOver={()=>{
     console.log(title);
-  }}>
+  }} */>
     <img src = {img} alt="Scott McClouds very helpful book"/>
     <h1 onClick={()=>console.log('get fucked')}>{title}</h1>
     <h4>{author.toUpperCase()}</h4>
     <button onClick={() =>complexExample(author)}>A complex example...</button>
+    <p>{6 * 7}</p>
   </article>
   );
 }
