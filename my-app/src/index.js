@@ -5,9 +5,9 @@ import ReactDom from 'react-dom/client';
 import './index.css';
 
 // IMPORT 
-import { books } from './books';
-import Book from './Book';
-import {greeting} from './testing/testing';
+//import { books } from './books';
+//import Book from './Book';
+//import {greeting} from './testing/testing';
 
 // JSX RULES:
 // 1. you can only return one element, but that element can have many children
@@ -36,32 +36,39 @@ import {greeting} from './testing/testing';
 } */
 
 function UseStateBasics(){
-  const [booklist, setBooks] = useState(books);
-  const removeItem = (id) => {
-    let newBook = booklist.filter((book) => book.id !== id);
-    setBooks(newBook);
-    console.log(newBook);
-  };
+  const [value, setValue] = useState(0);
+  const reset = () => {
+    setValue(0);
+  }
+  const complexIncrease = () => {
+    setTimeout(() => {
+      //setValue(value + 1);
+      setValue((prevValue) => { return prevValue + 1; });
+    }, 1500);
+  }
   return (
     <>
-      {
-        booklist.map((book) => {
-          const {id, title} = book;
-          return(
-            <div> 
-              <h4>{title}</h4> 
-              <button onClick={() => removeItem(id)}>
-                remove
-              </button>
-            </div>
-          );
-        })
-      }
-      <button onClick={
-        () => setBooks([])
-      }>
-        clear items
+    <section style = {{ padding: '2rem' }}>
+      <h2>regular counter</h2>
+      <h1>{value}</h1>
+      <button className='btn' onClick={() => setValue(value - 1)}>
+        decrease
       </button>
+      <button className='btn' onClick={() => setValue(value + 1)}>
+        increase
+      </button>
+      <button className='btn' onClick={reset}>
+        reset
+      </button>
+    </section>
+
+    <section style = {{ padding: '2rem' }}>
+      <h2>more complex counter</h2>
+      <h1>{value}</h1>
+      <button className='btn' onClick={() => complexIncrease()}>
+        increase
+      </button>
+    </section>
     </>
   )
 }
