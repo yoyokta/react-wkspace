@@ -5,24 +5,23 @@ import ReactDom from 'react-dom/client';
 import './index.css';
 
 function App(){
-const [value, setValue] = useState(0);
-  useEffect(() => {
-    console.log('call useEffect');
-    if (value > 0){
-        document.title = `New Messages (${value})`;
+    const[size, setSize] = useState(window.innerWidth);
+
+    const checkSize = () => {
+        setSize(window.innerWidth);
     }
-    
-  }, [value]);
-  useEffect(() => {
-    console.log('first time?');
-  }, []);
-  console.log('render component');
-  return (
-    <>
-    <h2>{value}</h2>
-    <button className='btn' onClick={() => setValue(value + 1)}>Click me!</button>
+
+    useEffect(() => {
+        window.addEventListener('resize', checkSize);
+        return () => {
+            console.log('cleanup');
+            window.removeEventListener('resize', checkSize);
+        };
+    }, []);
+    return <>
+    <h1>window</h1>
+    <h2>{size} px</h2>
     </>
-  )
 }
 
 export default App;
